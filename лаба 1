@@ -1,0 +1,24 @@
+#include <iostream>
+#include <iomanip>
+
+using namespace std;
+
+int main() {
+    long double x;
+    long double y;
+    cin >> x;
+
+    y = x * x;
+    long double ans = 0;
+
+    for (int i = 0; i < 1000; ++i) {
+        ans += x / (i * 2 + 1);
+        x *= y;
+    }
+
+    ans *= 2;
+
+    cout << fixed << setprecision(30) << ans;
+
+    return 0;
+}
