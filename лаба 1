@@ -4,8 +4,6 @@
 
 using namespace std;
 
-
-
 int main() {
     int k;
     cin >> k;
@@ -35,8 +33,8 @@ int main() {
     for (int i = 0; i < k; ++i) 
         con /= 10;
 
-    if (c - ans > con) cout << "my mensh";
-    else if (ans - c > con) cout << "my bolsh";
+    if (c - ans >= con) cout << "my mensh";
+    else if (ans - c >= con) cout << "my bolsh";
         else cout << "norm";
 
     return 0;
