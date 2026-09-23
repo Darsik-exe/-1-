@@ -1,0 +1,70 @@
+#include <iostream> 
+#include <stdio.h>
+#include <algorithm>
+
+long long _atoi1(char b[]) {
+    int res = 0, i = 0;
+    while ('0' <= b[i] && b[i] <= '9') {
+        res = res * 10 + (b[i++] - '0');
+    }
+
+    return res;
+}
+
+int main() {
+    const int N = 1000;
+
+    char b[N];
+    char c1[N], c2[N];
+
+    std::cout << "Write first numbers: ";
+    scanf("%[^\n]", &c1);
+
+    std::cout << "Write second numbers: ";
+    scanf("%[\n]", &c2);
+    scanf("%[^\n]", &c2);
+
+    std::cout << "Sum: " << _atoi1(c1) + _atoi1(c2) << '\n';
+
+    std::fill(b, b + N, ' ');
+
+    std::cout << "Write string: ";
+
+    scanf("%[\n]", &b);
+    scanf("%[^\n]", &b);
+
+    int Mcnt = 0, Mind = 0, ind = 0, cnt[256], n = 0;
+
+    std::fill(cnt, cnt + 256, 0);
+
+    for (int i = 0; i < N; ++i) 
+        if (b[i] != ' ') n = i + 1;
+    
+    ++n;
+
+    for (int i = 0; i < n; ++i) {
+        if (b[i] != ' ') {
+            ++cnt[b[i]];
+
+            continue;
+        }
+
+        int mx = 0;
+        for (int j = 0; j < 256; ++j) 
+            mx = std::max(mx, cnt[j]);
+
+        if (mx > Mcnt) {
+            Mcnt = mx;
+            Mind = ind;
+        }
+
+        std::fill(cnt, cnt + 256, 0);
+        ind = i + 1;
+    }
+
+    std::cout << "Answer: ";
+    while (b[Mind] != ' ') 
+        std::cout << b[Mind++];
+
+    return 0;
+}
