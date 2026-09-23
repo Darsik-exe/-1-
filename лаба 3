@@ -1,0 +1,105 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+struct matrix {
+    std::vector <int> v;
+    int N, M;
+
+    void bld(int n, int m)  {
+       v.resize(n * m / 2 + bool(!((n + m) % 2)), 0);
+
+        N = n;
+        M = m;
+   }
+
+   int get (int& i, int& j) {
+        if ((i + j) % 2) {
+            int ind = (i * M + j) / 2;
+
+            return v[ind];
+        }
+        else return *v.rbegin();  
+   }
+
+   void ins(int i, int& x) { 
+        v[i] = x;
+
+        return;
+   }
+   
+};
+
+int 
+main() {
+    std::cout << "n, m: ";
+    int n, m;
+    std::cin >> n >> m;
+
+   if (n > 10 || m > 10) {
+        std::cout << "\nAhtung";
+        
+        return 0;
+    }
+
+    matrix a;
+    a.bld(n, m);
+
+    if ((n + m) % 2) std::cout << "\nMatrix(only odd ([0, 1] [0, 3] ... [1, 0] [1, 2] ...)): ";
+    else std::cout << "\nMatrix(only odd ([0, 1] [0, 3] ... [1, 0] [1, 2] ...) and [n, m]): ";
+
+    for (int i = 0; i < n * m / 2 + bool(!((n + m) % 2)); ++i) { 
+        int x;
+        std::cin >> x;  
+        a.ins(i, x);
+    }
+
+    std::cout << "\nYour matrix:\n";
+    for (int i = 0; i < n; ++i) {
+        for (int j = 0; j < m; ++j) {
+            std::cout << a.get(i, j) << ' ';
+        }
+
+        std::cout << '\n';
+    }
+
+    std::vector < std::pair <int, int> > sum;
+
+    sum.resize(m, {0, 0});
+
+    for (int i = 0; i < n; ++i) 
+        for (int j = 0; j < m; ++j) {
+            sum[j].second = j;
+            int x = a.get(i, j);
+            if (x < 0 && abs(x) % 2) sum[j].first += abs(x); 
+        }
+
+    std::sort (sum.begin(), sum.end());
+
+    std::cout << "New matrix:\n";
+    
+    for (int i = 0; i < n; ++i) {
+        for (auto to: sum) 
+            std::cout << a.get(i, to.second) << ' ';
+        
+        std::cout << '\n';
+    }
+
+    std::vector < int > Ind;
+
+    for (auto to: sum) 
+        if (to.first != 0) Ind.push_back(to.second);
+
+    std::cout << "Sums (j (in original matrix), sum):\n";
+
+    for (auto to: Ind) {
+        int Sum = 0;
+
+        for (int i = 0; i < n; ++i) 
+            Sum += a.get(i, to);
+
+        std::cout << to << ", " << Sum << '\n';
+    }
+
+    return 0;
+}
