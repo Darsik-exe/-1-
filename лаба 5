@@ -3,9 +3,34 @@
 #include <algorithm>
 
 int main() {
-    std::ifstream in("C:/Users/User/Documents/input.txt");
-    std::ofstream out0("C:/Users/User/Documents/output0.txt");
-    std::ofstream out1("C:/Users/User/Documents/output1.txt");
+    std::string strin;
+    std::string strout0;
+    std::string strout1;
+
+    std::cout << "please, write full way.";
+
+    std::cout << "\ninput stream: ";
+    std::cin >> strin;
+
+    std::cout << "\nfirst output stream: ";
+    std::cin >> strout1;
+
+    std::cout << "\nsecond stream: ";
+    std::cin >> strout0;
+
+
+    //std::ifstream in("C:/Users/User/Documents/input.txt");
+    //std::ofstream out1("C:/Users/User/Documents/output1.txt");
+    //std::ofstream out0("C:/Users/User/Documents/output0.txt");
+
+    std::ifstream in(strin);
+    std::ofstream out0(strout0);
+    std::ofstream out1(strout1);
+
+    /*if (in.is_open()) 
+        std::cout << "ok";
+    else 
+        std::cout << "fuck";*/
 
     std::string sfull;
 
