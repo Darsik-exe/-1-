@@ -1,0 +1,40 @@
+#include <iostream>
+#include <fstream>
+#include <algorithm>
+
+int main() {
+    std::ifstream in("C:/Users/User/Documents/input.txt");
+    std::ofstream out0("C:/Users/User/Documents/output0.txt");
+    std::ofstream out1("C:/Users/User/Documents/output1.txt");
+
+    std::string sfull;
+
+    while (getline(in, sfull)) {
+        sfull += " ";
+        int cnt = 0;
+
+        std::string s1 = "", s2 = "";
+
+        for (int i = 0; i < sfull.size(); ++i) {
+            if (sfull[i] != ' ') {
+                s1 += sfull[i];
+                s2 = sfull[i] + s2;
+
+                continue;
+            }
+
+            if (s1 == s2) ++cnt;
+
+            s1 = s2 = "";
+        }
+
+        if (cnt == 0) out0 << sfull << '\n';
+        if (cnt == 1) out1 << sfull << '\n';
+    }
+
+    in.close();
+    out0.close();
+    out1.close();
+
+    return 0;
+}
