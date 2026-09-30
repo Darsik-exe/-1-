@@ -61,7 +61,7 @@ int main() {
     }
 
     std::cout << "Answer: ";
-    while (b[Mind] != ' ') 
+    while (b[Mind] != ' ' && b[Mind] != 0) 
         std::cout << b[Mind++];
 
     return 0;
