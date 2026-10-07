@@ -85,14 +85,17 @@ int main() {
 
     std::sort (sum.begin(), sum.end());
 
-    matrix b;
-    b.bld(n, m);
+    int** b = new int*[n];
+
+    for (int i = 0; i < n; ++i) {
+        b[i] = new int[m];
+    }
 
     for (int j = 0; j < m; ++j) {
         int ind = sum[j].second;
 
         for (int i = 0; i < n; ++i) {
-            b.Nins(i, j, a.get(i, ind));
+            b[i][j] = a.get(i, ind);
         }
     }
 
@@ -100,7 +103,7 @@ int main() {
     
     for (int i = 0; i < n; ++i) {
         for (int j = 0; j < m; ++j) 
-            std::cout << b.get(i, j) << ' ';
+            std::cout << b[i][j] << ' ';
         
         std::cout << '\n';
     }
@@ -112,7 +115,7 @@ int main() {
         bool f = 0;
 
         for (int i = 0; i < n; ++i) {
-            int x = b.get(i, j);
+            int x = b[i][j];
 
             sum += x;
             
@@ -125,6 +128,11 @@ int main() {
             std::cout << j << ", " << sum << '\n';
         }
     }
+
+    for (int i = 0; i < n; ++i) {
+        delete[] b[i];
+    }
+    delete[] b;
 
     return 0;
 }
