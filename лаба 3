@@ -28,10 +28,19 @@ struct matrix {
         return;
    }
    
+   void Nins(int &i, int& j, const int& x) {
+        if ((i + j) % 2) {
+            int ind = (i * M + j) / 2;
+
+            v[ind] = x;
+        }
+        else {
+            *v.rbegin() = x;
+        }
+   }
 };
 
-int 
-main() {
+int main() {
     std::cout << "n, m: ";
     int n, m;
     std::cin >> n >> m;
@@ -76,29 +85,45 @@ main() {
 
     std::sort (sum.begin(), sum.end());
 
+    matrix b;
+    b.bld(n, m);
+
+    for (int j = 0; j < m; ++j) {
+        int ind = sum[j].second;
+
+        for (int i = 0; i < n; ++i) {
+            b.Nins(i, j, a.get(i, ind));
+        }
+    }
+
     std::cout << "New matrix:\n";
     
     for (int i = 0; i < n; ++i) {
-        for (auto to: sum) 
-            std::cout << a.get(i, to.second) << ' ';
+        for (int j = 0; j < m; ++j) 
+            std::cout << b.get(i, j) << ' ';
         
         std::cout << '\n';
     }
 
-    std::vector < int > Ind;
+    std::cout << "Sums (j, sum):\n";
 
-    for (auto to: sum) 
-        if (to.first != 0) Ind.push_back(to.second);
+    for (int j = 0; j < m; ++j) {
+        int sum = 0;
+        bool f = 0;
 
-    std::cout << "Sums (j (in original matrix), sum):\n";
+        for (int i = 0; i < n; ++i) {
+            int x = b.get(i, j);
 
-    for (auto to: Ind) {
-        int Sum = 0;
+            sum += x;
+            
+            if (x < 0) {
+                f = 1;
+            }
+        }
 
-        for (int i = 0; i < n; ++i) 
-            Sum += a.get(i, to);
-
-        std::cout << to << ", " << Sum << '\n';
+        if (f) {
+            std::cout << j << ", " << sum << '\n';
+        }
     }
 
     return 0;
