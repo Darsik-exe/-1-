@@ -2,8 +2,6 @@
 #include <string>
 #include "proper_fraction_class.h"
 
-int a, b;
-
 int proper_fraction::gcd(int a, int b) {
     while (a && b) 
         if (a > b) a %= b;
