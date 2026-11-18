@@ -40,7 +40,7 @@ student_after_first::student_after_first (const student_after_first& student) : 
     type = 1;
 }
 
-std::string student_after_first::print() {
+std::string student_after_first::print() const {
     std::stringstream out;
 
     //std::cout << "first first\n";
@@ -87,12 +87,7 @@ double student_after_first::get_mid_first_grade() {
 }
 
 std::ostream& operator<< (std::ostream& out, const student_after_first& student) {
-    out << static_cast<basic_student_class>(student);
-    out << "Grade after first: ";
-    for (const auto& x : student.get_full_first_grade()) {
-        out << x << ' ';
-    }
-    out << '\n';
+    out << student.print();
 
     return out;
 }

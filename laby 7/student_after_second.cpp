@@ -61,7 +61,7 @@ student_after_second::student_after_second (const student_after_second& student)
     type = 2;
 }
 
-std::string student_after_second::print() {
+std::string student_after_second::print() const {
     std::stringstream out;
 
     //std::cout << "second frist\n";
@@ -110,12 +110,7 @@ double student_after_second::get_mid_year_grade() {
 }
 
 std::ostream& operator<< (std::ostream& out, const student_after_second& student) {
-    out << static_cast<student_after_first>(student);
-    out << "Grade after second: ";
-    for (const auto& x : student.get_full_second_grade()) {
-        out << x << ' ';
-    }
-    out << '\n';
+    out << student.print();
 
     return out;
 }

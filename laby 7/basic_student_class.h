@@ -29,7 +29,7 @@ class basic_student_class {
         void reyear(const int& new_year);
         void regroup(const int& new_group);
 
-        virtual std::string print();
+        virtual std::string print() const;
 
         char* get_name() const;
         int get_year() const;
@@ -42,5 +42,4 @@ class basic_student_class {
         virtual double get_mid_year_grade();
         
 };
-
 std::ostream& operator<< (std::ostream& out, const basic_student_class& student);

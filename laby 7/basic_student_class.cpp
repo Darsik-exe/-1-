@@ -63,7 +63,7 @@ void basic_student_class::regroup(const int& new_group) {
     group = new_group;
 }
 
-std::string basic_student_class::print() {
+std::string basic_student_class::print() const {
     std::stringstream out;
     
     //std::cout << "zero first\n";
@@ -112,11 +112,7 @@ double basic_student_class::get_mid_year_grade() {
 }
 
 std::ostream& operator<< (std::ostream& out, const basic_student_class& student) {
-    out << "ID: " << student.get_ID() << '\n';
-    out << "Passbook: " << student.get_passbook() << '\n';
-    out << "Name: " << student.get_name() << '\n';
-    out << "Year: " << student.get_year() << '\n';
-    out << "Group: " << student.get_group() << '\n';
+    out << student.print();
 
     return out;
 }
