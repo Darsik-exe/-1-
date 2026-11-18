@@ -142,11 +142,7 @@ std::ostream& operator<< (std::ostream& out, proper_fraction x) {
 std::istream& operator>> (std::istream& in, proper_fraction& x) {
     std::string s;
     in >> s;
-
-    std::string s1, s2;
-    s1.clear();
-    s2.clear();
-
+    
     bool f = 0;
     short sign_a = 1, sign_b = 1;
     int a = 0, b = 0;
