@@ -21,6 +21,13 @@ int main() {
 
     int n = s.size();
 
+    for (int i = n - 2; i >= 0; --i) {
+        if (isNumber(s[i]) && s[i + 1] == '(') s.insert(i + 1, "*");
+        if (s[i] == ')' && s[i + 1] == '(') s.insert(i + 1, "*");
+    }
+
+    n = s.size();
+
     { //check is expression correct
 
     if (n == 0) {
