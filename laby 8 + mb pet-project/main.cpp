@@ -1,12 +1,13 @@
 #include <iostream>
 #include <string>
-#include "proper_fraction_class.h"
 #include "stack.h"
 
 bool isOperation(const char& x);
 bool isNumber(const char& x);
 bool correct_symbol(const char& x);
 int get_priority(const char& c);
+int toInt (const std::string& s);
+long double bin_pow (long double x, int n);
 
 int main() {
     std::cout << "Write:\n";
@@ -163,11 +164,11 @@ int main() {
         st >> 1;
     }
     
-    std::cout << s << '\n' << cs << '\n';
+    //std::cout << s << '\n' << cs << '\n';
     
     } // end of block
 
-    stack<proper_fraction> ans;
+    stack<long double> ans;
 
     { //get answer
     
@@ -182,7 +183,7 @@ int main() {
         }
 
         if (!number.empty()) {
-            ans << proper_fraction(number);
+            ans << static_cast<long double>(toInt(number));
 
             number.clear();
         }
@@ -190,8 +191,8 @@ int main() {
         if (!correct_symbol(to)) 
             continue;
 
-        proper_fraction x = ans.top();
-        proper_fraction y = 0;
+        long double x = ans.top();
+        long double y = 0;
         ans >> 1;
         if (!ans.empty()) {
             y = ans.top();
@@ -211,7 +212,7 @@ int main() {
             y = y - x;
 
         if (to == '^') 
-            y = y ^ x;
+            y = bin_pow(y, x);
 
         //std::cout << x << ' ' << y << '\n';
 
@@ -254,4 +255,31 @@ int get_priority(const char& c) {
     if (c == '-' || c == '+') return 1;
     if (c == '*' || c == '/') return 2;
     if (c == '^') return 3;
+
+    return 0;
+}
+
+int toInt (const std::string& s) {
+    int x = 0;
+    for (int i = 0; i < s.size(); ++i) 
+        x = x * 10 + s[i] - '0';
+
+    return x;
+}
+
+ long double bin_pow (long double x, int n) {
+    long double res = 1;
+
+    while (n) {
+        if (n % 2) {
+            res *= x;
+            --n;
+        }
+        else {
+            x *= x;
+            n /= 2;
+        }
+    }
+
+    return res;
 }
